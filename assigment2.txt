@@ -1,0 +1,47 @@
+[Assignment 2 Announcement – For Team Members]
+Dear all,
+The announcement below is the assignment information provided to your Group Leaders and Assistant Leaders. Please review it for your reference.
+
+Although team members are not responsible for submitting the assignment on Google Classroom, all members are expected to participate and contribute to the assignment.
+
+This is a group assignment. Teamwork and shared responsibility are important skills that everyone is expected to develop.
+
+If any issues regarding group participation or teamwork occur, the Group Leader or Assistant Leader may report them to the instructor.
+
+------------------------------------------------------------------------------------
+Reference POST
+------------------------------------------------------------------------------------
+Dear Leaders and Assistant Leaders,
+
+Practical Assignment 2 is now available.
+Please carefully read the attached assignment document for the requirements, instructions, and questions before starting the assignment.
+
+Submission Format
+
+Please submit the following three items:
+
+1. One PDF Report
+The report must contain all answers, explanations, diagrams, and required screenshots.
+Please make sure that all questions are clearly answered.
+
+2. One Wireshark Capture File (.pcap / .pcapng)
+Please submit the packet capture file used for your analysis in the report.
+The submitted capture file should contain the TCP/UDP communication demonstrated in your assignment.
+
+3. Customized Server Python Source Code (.py)
+For Section 3: Designing Your Own Network Application, your group may customize either the TCP or UDP server, according to the transport-layer protocol selected for your application.
+You are not required to customize both TCP and UDP servers.
+Your protocol selection should be consistent with the application requirements and the explanation provided in your report.
+If you also modify the client-side source code for your application, please submit the modified client code as well.
+Failure to submit the customized source code will result in ZERO marks for Section 3.
+Important Notes
+This is a group assignment. Only one complete submission per group is required.
+The Group Leader is responsible for submitting the assignment. The Assistant Leader may submit on behalf of the group if the Group Leader is unable to do so.
+Please make sure that the submitted PDF report, Wireshark capture file, and Python source code are consistent with one another.
+This assignment requires actual communication between devices over a network. Running the assignment using localhost only is NOT accepted.
+Please carefully check all submitted files before submission.
+Deadline: 23 Sep 2026
+Teamwork is important. Please make sure that all group members participate in the assignment.
+
+Enjoy the assignment! 😄
+Aj. Nutt
