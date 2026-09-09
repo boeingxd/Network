@@ -3,9 +3,6 @@
 Kept free of socket I/O so it can be unit-tested directly.
 """
 
-import threading
-
-
 def format_chat_message(username, text):
     return f"{username}: {text}"
 
@@ -38,34 +35,3 @@ class LineBuffer:
         self._buffer += data
         *complete, self._buffer = self._buffer.split(b"\n")
         return [line.decode() for line in complete]
-
-
-class ClientRegistry:
-    """Tracks connected clients (connection -> username) for broadcast.
-
-    Safe to share across the server's per-client threads.
-    """
-
-    def __init__(self):
-        self._by_conn = {}
-        self._lock = threading.Lock()
-
-    def add(self, conn, username):
-        with self._lock:
-            self._by_conn[conn] = username
-
-    def usernames(self):
-        with self._lock:
-            return list(self._by_conn.values())
-
-    def remove(self, conn):
-        with self._lock:
-            self._by_conn.pop(conn, None)
-
-    def others(self, conn):
-        with self._lock:
-            return [c for c in self._by_conn if c != conn]
-
-    def username_for(self, conn):
-        with self._lock:
-            return self._by_conn.get(conn)

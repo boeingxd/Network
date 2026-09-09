@@ -1,7 +1,6 @@
 import unittest
 
 from chat_logic import (
-    ClientRegistry,
     LineBuffer,
     format_chat_message,
     format_join_message,
@@ -26,35 +25,6 @@ class TestFormatLeaveMessage(unittest.TestCase):
     def test_announces_username_left(self):
         result = format_leave_message("Alice")
         self.assertEqual(result, "*** Alice has left ***")
-
-
-class TestClientRegistry(unittest.TestCase):
-    def test_added_client_appears_in_usernames(self):
-        registry = ClientRegistry()
-        registry.add("conn-a", "Alice")
-        self.assertIn("Alice", registry.usernames())
-
-    def test_removed_client_disappears_from_usernames(self):
-        registry = ClientRegistry()
-        registry.add("conn-a", "Alice")
-        registry.remove("conn-a")
-        self.assertNotIn("Alice", registry.usernames())
-
-    def test_others_excludes_the_given_connection(self):
-        registry = ClientRegistry()
-        registry.add("conn-a", "Alice")
-        registry.add("conn-b", "Bob")
-        registry.add("conn-c", "Carol")
-
-        result = registry.others("conn-a")
-
-        self.assertEqual(set(result), {"conn-b", "conn-c"})
-
-    def test_username_for_returns_registered_name(self):
-        registry = ClientRegistry()
-        registry.add("conn-a", "Alice")
-
-        self.assertEqual(registry.username_for("conn-a"), "Alice")
 
 
 class TestIsQuitCommand(unittest.TestCase):

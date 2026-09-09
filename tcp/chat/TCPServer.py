@@ -1,66 +1,58 @@
 import threading
 from socket import *
 
-from chat_logic import (
-    ClientRegistry,
-    LineBuffer,
-    format_chat_message,
-    format_join_message,
-    format_leave_message,
-)
+from chat_logic import LineBuffer, format_chat_message, format_join_message, format_leave_message, is_quit_command
 
 serverPort = 12000
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.bind(('', serverPort))
-serverSocket.listen(5)
+serverSocket.listen(1)
 print("The server is ready to receive")
 
-clients = ClientRegistry()
+my_username = input("Choose a username: ").strip() or "Server"
 
+connectionSocket, addr = serverSocket.accept()
 
-def broadcast(text, sender_conn):
-    payload = (text + "\n").encode()
-    for conn in clients.others(sender_conn):
-        try:
-            conn.send(payload)
-        except OSError:
-            pass  # that client's own handler thread will clean it up
+# TCP has no message boundaries, so every line (peer's username, then each
+# chat message) is read through a LineBuffer instead of trusting recv() to
+# return exactly one message per call.
+line_buffer = LineBuffer()
 
-
-def handle_client(connectionSocket, addr):
-    # TCP has no message boundaries, so every line (username, then each chat
-    # message) is read through a LineBuffer instead of trusting recv() to
-    # return exactly one message per call.
-    line_buffer = LineBuffer()
-
-    username = None
-    while username is None:
-        data = connectionSocket.recv(1024)
-        if not data:
-            connectionSocket.close()
-            return
-        lines = line_buffer.feed(data)
-        if lines:
-            username = lines[0] or "Anonymous"
-
-    clients.add(connectionSocket, username)
-    print(f"{username} connected from {addr}")
-    broadcast(format_join_message(username), connectionSocket)
-
-    try:
-        while True:
-            data = connectionSocket.recv(1024)
-            if not data:
-                break
-            for text in line_buffer.feed(data):
-                broadcast(format_chat_message(username, text), connectionSocket)
-    finally:
-        clients.remove(connectionSocket)
-        broadcast(format_leave_message(username), connectionSocket)
+peer_username = None
+while peer_username is None:
+    data = connectionSocket.recv(1024)
+    if not data:
         connectionSocket.close()
-        print(f"{username} disconnected")
+        raise SystemExit("Peer disconnected before sending a username")
+    lines = line_buffer.feed(data)
+    if lines:
+        peer_username = lines[0] or "Peer"
+
+connectionSocket.send((my_username + "\n").encode())
+print(format_join_message(peer_username))
 
 
+def listen_for_messages():
+    while True:
+        try:
+            data = connectionSocket.recv(1024)
+        except OSError:
+            break
+        if not data:
+            print("\n" + format_leave_message(peer_username))
+            break
+        for line in line_buffer.feed(data):
+            print("\n" + format_chat_message(peer_username, line))
+
+
+receiver = threading.Thread(target=listen_for_messages, daemon=True)
+receiver.start()
+
+print(f"Chatting with {peer_username}. Type a message and press Enter. Type /quit to leave.")
 while True:
-    connectionSocket, addr = serverSocket.accept()
-    threading.Thread(target=handle_client, args=(connectionSocket, addr), daemon=True).start()
+    message = input()
+    if is_quit_command(message):
+        break
+    connectionSocket.send((message + "\n").encode())
+
+connectionSocket.close()
