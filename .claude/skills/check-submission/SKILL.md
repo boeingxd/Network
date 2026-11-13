@@ -4,20 +4,20 @@ description: Verify the three required Assignment 2 submission items (PDF report
 ---
 
 Check this repo against the Assignment 2 submission requirements (see CLAUDE.md /
-`docs/assigment2.txt` for the full brief) and report a clear pass/fail per item:
+`assignment2/docs/assigment2.txt` for the full brief) and report a clear pass/fail per item:
 
-1. **PDF report** — Is there a PDF report (distinct from `docs/DES331_Assignment2.pdf` and
-   `docs/socket_programming(self-studied).pdf`, which are brief/reference material, not the
+1. **PDF report** — Is there a PDF report (distinct from `assignment2/docs/DES331_Assignment2.pdf` and
+   `assignment2/docs/socket_programming(self-studied).pdf`, which are brief/reference material, not the
    report) containing answers, explanations, diagrams, and required screenshots? Look for it
    in the repo; if none exists, say so plainly rather than guessing.
 
 2. **Wireshark capture** — Is there a `.pcap`/`.pcapng` file in the repo? If found, note its
    name/location. Flag if none is present — this is required and easy to forget to commit.
 
-3. **Customized source code** — Section 3 is customized in `tcp/chat/` (`TCPServer.py`,
+3. **Customized source code** — Section 3 is customized in `assignment2/tcp/chat/` (`TCPServer.py`,
    `TCPClient.py`, `chat_logic.py`) — a 1-to-1 TCP peer chat, not the original letter-case
    transform. Confirm those files are actually present and still reflect that customization
-   (not reverted to the echo behavior in `tcp/original/` or `udp/`). If the client was also
+   (not reverted to the echo behavior in `assignment2/tcp/original/` or `assignment2/udp/`). If the client was also
    modified, confirm it's included too.
 
 4. **Localhost check** — Grep the customized client/server for `127.0.0.1` or `localhost`.

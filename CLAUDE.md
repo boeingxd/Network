@@ -5,25 +5,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this repo is
 
 DES331 (Section 2) Practical Assignment 2 — Group 8. A socket-programming exercise
-covering TCP and UDP client/server communication in Python. `docs/assigment2.txt` has the
-submission logistics; `docs/DES331_Assignment2.pdf` is the assignment brief;
-`docs/socket_programming(self-studied).pdf` is reference material. `misc/index.html` is
+covering TCP and UDP client/server communication in Python. `assignment2/docs/assigment2.txt` has the
+submission logistics; `assignment2/docs/DES331_Assignment2.pdf` is the assignment brief;
+`assignment2/docs/socket_programming(self-studied).pdf` is reference material. `assignment1/index.html` is
 leftover from Assignment 1 (HTTP server), not part of this assignment.
 
-Files are grouped by protocol:
+Layout: `class/` holds lecture PDFs and study notes (local only, not in git); `assignment1/` and `assignment2/` hold the practical assignments. Wireshark captures are in `assignment2/docs/captures/`.
 
-- `udp/UDPServer.py` / `udp/UDPClient.py` — UDP echo (uppercases the sent message, also prints
+Assignment 2 files are grouped by protocol:
+
+- `assignment2/udp/UDPServer.py` / `assignment2/udp/UDPClient.py` — UDP echo (uppercases the sent message, also prints
   client IP/port), unmodified — used for Section 1.
-- `tcp/original/TCPServer.py` / `tcp/original/TCPClient.py` — untouched copies of the original
+- `assignment2/tcp/original/TCPServer.py` / `assignment2/tcp/original/TCPClient.py` — untouched copies of the original
   uppercase-echo TCP scripts, kept for Section 2 (TCP Packet Analysis), which is separate from
   the Section 3 customization.
-- `tcp/chat/TCPServer.py` / `tcp/chat/TCPClient.py` — customized for Section 3: a 1-to-1 TCP
+- `assignment2/tcp/chat/TCPServer.py` / `assignment2/tcp/chat/TCPClient.py` — customized for Section 3: a 1-to-1 TCP
   peer chat (both sides run a receiver thread + input loop symmetrically, username handshake,
-  newline-framed protocol via `tcp/chat/chat_logic.py`). Run tests with
-  `cd tcp/chat && python3 -m unittest test_chat_logic`.
+  newline-framed protocol via `assignment2/tcp/chat/chat_logic.py`). Run tests with
+  `cd assignment2/tcp/chat && python3 -m unittest test_chat_logic`.
 
-`tcp/original/TCPClient.py` still points at `serverName = "127.0.0.1"` — swap in a real IP
-before testing across devices. `udp/UDPClient.py` and `tcp/chat/TCPClient.py` already prompt
+`assignment2/tcp/original/TCPClient.py` still points at `serverName = "127.0.0.1"` — swap in a real IP
+before testing across devices. `assignment2/udp/UDPClient.py` and `assignment2/tcp/chat/TCPClient.py` already prompt
 for (or are set to) a real IP from live testing.
 
 ## Network gotcha: campus Wi-Fi blocks device-to-device traffic
