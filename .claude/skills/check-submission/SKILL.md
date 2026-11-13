@@ -15,7 +15,7 @@ Check this repo against the Assignment 2 submission requirements (see CLAUDE.md 
    name/location. Flag if none is present — this is required and easy to forget to commit.
 
 3. **Customized source code** — Section 3 is customized in `tcp/chat/` (`TCPServer.py`,
-   `TCPClient.py`, `chat_logic.py`) — a multi-client group chat, not the original letter-case
+   `TCPClient.py`, `chat_logic.py`) — a 1-to-1 TCP peer chat, not the original letter-case
    transform. Confirm those files are actually present and still reflect that customization
    (not reverted to the echo behavior in `tcp/original/` or `udp/`). If the client was also
    modified, confirm it's included too.

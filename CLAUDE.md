@@ -17,9 +17,10 @@ Files are grouped by protocol:
 - `tcp/original/TCPServer.py` / `tcp/original/TCPClient.py` — untouched copies of the original
   uppercase-echo TCP scripts, kept for Section 2 (TCP Packet Analysis), which is separate from
   the Section 3 customization.
-- `tcp/chat/TCPServer.py` / `tcp/chat/TCPClient.py` — customized for Section 3: a multi-client
-  TCP group chat (threaded broadcast server, username handshake, newline-framed protocol via
-  `tcp/chat/chat_logic.py`). Run tests with `cd tcp/chat && python3 -m unittest test_chat_logic`.
+- `tcp/chat/TCPServer.py` / `tcp/chat/TCPClient.py` — customized for Section 3: a 1-to-1 TCP
+  peer chat (both sides run a receiver thread + input loop symmetrically, username handshake,
+  newline-framed protocol via `tcp/chat/chat_logic.py`). Run tests with
+  `cd tcp/chat && python3 -m unittest test_chat_logic`.
 
 `tcp/original/TCPClient.py` still points at `serverName = "127.0.0.1"` — swap in a real IP
 before testing across devices. `udp/UDPClient.py` and `tcp/chat/TCPClient.py` already prompt
